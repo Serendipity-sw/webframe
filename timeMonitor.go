@@ -24,7 +24,7 @@ var (
 
 func init() {
 	deferinit.AddRoutine(notifyTemplates)
-	deferinit.AddRoutine(watchJsDir)
+	deferinit.AddRoutine(watchFuncDir)
 }
 
 /**
@@ -33,17 +33,16 @@ func init() {
 创建时间:2016年3月7日09:51:42
 输入参数: 终止命令  计数器对象
 */
-func watchJsDir(ch chan struct{}, wg *sync.WaitGroup) {
+func watchFuncDir(ch chan struct{}, wg *sync.WaitGroup) {
 	go func() {
 		<-ch
-
 		jsTmr.Stop()
 		wg.Done()
 	}()
 
 	jsTmr = time.NewTimer(time.Minute)
 	for {
-
+		//需要定时执行方法
 		jsTmr.Reset(time.Minute)
 		<-jsTmr.C
 	}

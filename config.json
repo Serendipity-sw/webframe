@@ -14,5 +14,11 @@
   //数据库密码
   "dbpass": "",
   //数据库库名
-  "dbname": ""
+  "dbname": "",
+  //redis连接方式
+  "redisProto":"tcp",
+  //redis连接地址
+  "redisAddr":"127.0.0.1:6379",
+  //redis  database
+  "redisDatabase":5
 }
