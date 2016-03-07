@@ -32,7 +32,12 @@
     
 ## 监视文件夹目录如发生任何修改,重新载入
 
-    增加notifyTemplates 方法,检测文件夹是否发生变化,如发生变化,则重新将模版文件载入到gin对象中
+    增加notifyTemplates 方法,检测template文件夹是否发生变化,如发生变化,则重新将模版文件载入到gin对象中
+    
+## 项目中资源文件
+
+    项目中所有资源文件存放在content文件夹中,该目录读取由go进行,文件资源暂不做缓存处理.在main.go文件中router路由方法g.GET("/assets/*pth", assetsFiles)
+    请求路劲为http://域名/assets/资源文件目录  如content文件下有个js文件则为  http://域名/assets/jquery.js
     
 ## 项目添加路由
     
