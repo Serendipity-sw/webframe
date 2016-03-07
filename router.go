@@ -28,7 +28,7 @@ func assetsFiles(c *gin.Context) {
 }
 
 func getAssetFilePath(pth string) (string, error) {
-	entrys := strings.Split(pth, "/")[1:]
+	entrys := strings.Split(pth, "/")
 	sentrys := []string{contentDir}
 	for _, s := range entrys {
 		s = strings.TrimSpace(s)
