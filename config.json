@@ -1,0 +1,5 @@
+{
+"rootPrefix":"",//二级目录地址
+  "tempDir":"./template/*",//模版目录位置
+  "contentDir":"content"//资源文件目录位置
+}
