@@ -1,5 +1,18 @@
 {
-"rootPrefix":"",//二级目录地址
-  "tempDir":"./template/*",//模版目录位置
-  "contentDir":"content"//资源文件目录位置
+  //二级目录地址
+  "rootPrefix": "",
+  //模版目录位置
+  "tempDir": "./template/*",
+  //资源文件目录位置
+  "contentDir": "content",
+  //数据库账号
+  "dbuser": "",
+  //数据库地址
+  "dbhost": "",
+  //数据库端口
+  "dbport": 3306,
+  //数据库密码
+  "dbpass": "",
+  //数据库库名
+  "dbname": ""
 }
