@@ -1,49 +1,56 @@
 package main
 
 import (
-	"github.com/guotie/config"
-	"fmt"
 	"database/sql"
+	"fmt"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/smtc/glog"
+	"github.com/guotie/config"
 	"github.com/guotie/deferinit"
+	"github.com/smtc/glog"
 )
 
 var (
-dbs *sql.DB
+	dbs *sql.DB
 )
 
 func init() {
-	deferinit.AddInit(sqlConntion,sqlClose,20)
+	deferinit.AddInit(sqlConntion, sqlClose, 20)
 }
 
 /**
 数据库连接
 创建人:邵炜
 创建时间:2016年3月7日11:24:48
- */
+*/
 func sqlConntion() {
 
-	dbuser:=config.GetStringMust("dbuser")
-	dbhost:=config.GetStringMust("dbhost")
+	var (
+		err error
+	)
+
+	dbuser := config.GetStringMust("dbuser")
+	dbhost := config.GetStringMust("dbhost")
 	dbport := config.GetIntDefault("dbport", 3306)
 	dbpass := config.GetStringMust("dbpass")
 	dbname := config.GetStringMust("dbname")
 
-	dbclause:=fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8&parseTime=true", dbuser, dbpass, dbhost, dbport, dbname)
+	dbclause := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8&parseTime=true", dbuser, dbpass, dbhost, dbport, dbname)
 
-	dbs,err:=sql.Open("mysql",dbclause)
+	dbs, err = sql.Open("mysql", dbclause)
 
 	if err != nil {
-		glog.Error("mysql can't connection %s \n",err.Error())
+		glog.Error("mysql can't connection %s \n", err.Error())
 		return
 	}
 
-	err=dbs.Ping()
+	err = dbs.Ping()
 
 	if err != nil {
-		glog.Error("mysql can't ping , err: %s \n",err.Error())
+		glog.Error("mysql can't ping , err: %s \n", err.Error())
+		return
 	}
+
+	glog.Info("mysql is open \n")
 }
 
 /**

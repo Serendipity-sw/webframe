@@ -36,13 +36,14 @@ func init() {
 func watchFuncDir(ch chan struct{}, wg *sync.WaitGroup) {
 	go func() {
 		<-ch
+
 		jsTmr.Stop()
 		wg.Done()
 	}()
 
 	jsTmr = time.NewTimer(time.Minute)
 	for {
-		//需要定时执行方法
+		//需要定时执行的方法
 		jsTmr.Reset(time.Minute)
 		<-jsTmr.C
 	}
@@ -55,7 +56,7 @@ func watchFuncDir(ch chan struct{}, wg *sync.WaitGroup) {
 输入参数: gin对象
 */
 func loadTemplates(e *gin.Engine) {
-	t, err := template.New("tmpls").Funcs(funcName).ParseGlob(tempDir)
+	t, err := template.New("tmpls").Funcs(funcName).ParseGlob(tempDir+"*")
 
 	if err != nil {
 		glog.Error("loadTemplates failed: %s %s \n", tempDir, err.Error())

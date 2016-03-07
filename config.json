@@ -1,6 +1,6 @@
 {
   "rootPrefix": "",
-  "tempDir": "./template/*",
+  "tempDir": "template/",
   "contentDir": "content",
   "dbuser": "",
   "dbhost": "",
