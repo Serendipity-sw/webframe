@@ -48,3 +48,17 @@
         		g.GET("/assets/*pth", assetsFiles)
         	}
     处添加需要配置的路由项
+    
+## 配置文件解析
+      
+      "rootPrefix": "",//二级目录地址
+      "tempDir": "./template/*",//模版目录位置
+      "contentDir": "content",//资源文件目录位置
+      "dbuser": "",//数据库账号
+      "dbhost": "",//数据库地址
+      "dbport": 3306,//数据库端口
+      "dbpass": "",//数据库密码
+      "dbname": "",//数据库库名
+      "redisProto":"tcp",//redis连接方式
+      "redisAddr":"127.0.0.1:6379",//redis连接地址
+      "redisDatabase":5//redis  database
