@@ -8,6 +8,9 @@ import (
 	"github.com/smtc/glog"
 	"runtime"
 	"strings"
+	"os"
+	"os/signal"
+	"syscall"
 )
 
 var (
@@ -33,6 +36,17 @@ func main() {
 	flag.Parse()
 
 	serverRun(*configFn, *debugFlag)
+
+	c := make(chan os.Signal, 1)
+	writePid()
+	// 信号处理
+	signal.Notify(c, os.Interrupt, os.Kill, syscall.SIGTERM)
+	// 等待信号
+	<-c
+
+	serverExit()
+	rmPidFile()
+	os.Exit(0)
 }
 
 /**
@@ -49,6 +63,7 @@ func serverRun(cfn string, debug bool) {
 	rootPrefix = strings.TrimSpace(config.GetStringMust("rootPrefix"))
 	tempDir = strings.TrimSpace(config.GetStringMust("tempDir"))
 	contentDir = strings.TrimSpace(config.GetStringMust("contentDir"))
+	port:=strings.TrimSpace(config.GetStringMust("port"))
 
 	if len(rootPrefix) != 0 {
 		if !strings.HasPrefix(rootPrefix, "/") {
@@ -78,6 +93,24 @@ func serverRun(cfn string, debug bool) {
 	rt = gin.Default()
 
 	router(rt)
+
+	go rt.Run(port)
+}
+
+/**
+结束进程
+创建人:邵炜
+创建时间:2016年3月7日14:21:24
+ */
+func serverExit() {
+	// 结束所有go routine
+	deferinit.StopRoutines()
+	glog.Info("stop routine successfully.\n")
+
+	deferinit.FiniAll()
+	glog.Info("fini all modules successfully.\n")
+
+	glog.Close()
 }
 
 /**
