@@ -2,10 +2,12 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/guotie/config"
 	"github.com/guotie/deferinit"
 	"github.com/howeyc/fsnotify"
 	"github.com/smtc/glog"
 	"html/template"
+	"strings"
 	"sync"
 	"time"
 )
@@ -23,6 +25,12 @@ var (
 )
 
 func init() {
+	deferinit.AddInit(func() {
+		tempDir = config.GetStringDefault("tempDir", "template/")
+		if !strings.HasSuffix(tempDir, "/") {
+			tempDir += "/"
+		}
+	}, nil, 40)
 	deferinit.AddRoutine(notifyTemplates)
 	deferinit.AddRoutine(watchFuncDir)
 }
@@ -56,7 +64,7 @@ func watchFuncDir(ch chan struct{}, wg *sync.WaitGroup) {
 输入参数: gin对象
 */
 func loadTemplates(e *gin.Engine) {
-	t, err := template.New("tmpls").Funcs(funcName).ParseGlob(tempDir+"*")
+	t, err := template.New("tmpls").Funcs(funcName).ParseGlob(tempDir + "*")
 
 	if err != nil {
 		glog.Error("loadTemplates failed: %s %s \n", tempDir, err.Error())

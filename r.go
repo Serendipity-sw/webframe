@@ -78,13 +78,12 @@ func closeRedis() {
 	rpool.Close()
 }
 
-
 /**
 设置redis缓存
 创建人:邵炜
 输入参数: uuid键值  ps存入字符串
 输出参数: 错误对象
- */
+*/
 func setRedisCachePs(uuid string, ps string) error {
 
 	c := rpool.Get()
@@ -103,7 +102,7 @@ func setRedisCachePs(uuid string, ps string) error {
 创建时间:2016年3月7日12:01:55
 输入参数: key 键值
 输出参数: redis获取值 错误对象
- */
+*/
 func getRedisCachePs(key string) (*string, error) {
 
 	c := rpool.Get()
@@ -117,8 +116,7 @@ func getRedisCachePs(key string) (*string, error) {
 		return nil, err
 	}
 
-	ps:=r.(string)
+	ps := r.(string)
 
 	return &ps, nil
 }
-

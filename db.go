@@ -57,12 +57,12 @@ func sqlConntion() {
 数据库关闭
 创建人:邵炜
 创建时间:2016年3月7日11:26:23
- */
+*/
 func sqlClose() {
-	err:=dbs.Close()
+	err := dbs.Close()
 
 	if err != nil {
-		glog.Error("mysql can't close ,err: %s \n",err.Error())
+		glog.Error("mysql can't close ,err: %s \n", err.Error())
 	}
 }
 
