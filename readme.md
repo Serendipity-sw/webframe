@@ -39,6 +39,12 @@
     项目中所有资源文件存放在content文件夹中,该目录读取由go进行,文件资源暂不做缓存处理.在main.go文件中router路由方法g.GET("/assets/*pth", assetsFiles)
     请求路劲为http://域名/assets/资源文件目录  如content文件下有个js文件则为  http://域名/assets/jquery.js
     
+## 增加图片流字符串解析保存到给定的目录中
+    
+    提供imageFileSave方法,该方法寄存在imageFile.go文件中,方法接收两个参数,其中对图片流格式要求为: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGIAAABiCAYAAACrpQYOAAAAGX.........
+    path为接收的需要保存路径,如 ./temp/
+    方法会将图片流转化为实际图片存放在给定目录中.并返回路径
+    
 ## 项目添加路由
     
     请在main.go文件中router方法的
