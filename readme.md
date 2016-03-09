@@ -69,3 +69,7 @@
       "redisAddr":"127.0.0.1:6379",//redis连接地址
       "redisDatabase":5,//redis  database,
       "port":":8000"//服务监听端口
+      
+## 开源协议
+
+无任何使用限制
