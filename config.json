@@ -2,13 +2,13 @@
   "rootPrefix": "",
   "tempDir": "template/",
   "contentDir": "content",
-  "dbuser": "",
-  "dbhost": "",
+  "dbuser": "root",
+  "dbhost": "10.10.141.102",
   "dbport": 3306,
-  "dbpass": "",
-  "dbname": "",
+  "dbpass": "Sw435464",
+  "dbname": "dspadmin",
   "redisProto":"tcp",
-  "redisAddr":"127.0.0.1:6379",
+  "redisAddr":"10.10.188.10:6379",
   "redisDatabase":5,
   "port":":8000"
 }
