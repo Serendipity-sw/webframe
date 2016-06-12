@@ -34,7 +34,7 @@ func sqlConntion() {
 	dbpass := config.GetStringMust("dbpass")
 	dbname := config.GetStringMust("dbname")
 
-	dbclause := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8&parseTime=true", dbuser, dbpass, dbhost, dbport, dbname)
+	dbclause := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8&parseTime=true&allowAllFiles=true", dbuser, dbpass, dbhost, dbport, dbname)
 
 	dbs, err = sql.Open("mysql", dbclause)
 
