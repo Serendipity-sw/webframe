@@ -91,7 +91,7 @@ func serverRun(cfn string, debug bool) {
 	}
 
 	rt = gin.Default()
-
+	loadTemplates(rt)
 	router(rt)
 
 	go rt.Run(port)
