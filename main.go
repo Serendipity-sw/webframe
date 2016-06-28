@@ -11,6 +11,7 @@ import (
 	"runtime"
 	"strings"
 	"syscall"
+	"net/http"
 )
 
 var (
@@ -128,6 +129,6 @@ func router(r *gin.Engine) {
 	{
 		g.GET("/", func(c *gin.Context) { c.String(200, "ok") })
 
-		g.GET("/assets/*pth", assetsFiles)
+		g.StaticFile("/assets",http.Dir(contentDir))
 	}
 }
