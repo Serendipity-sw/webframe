@@ -55,6 +55,12 @@
         	}
     处添加需要配置的路由项
     
+## 文件读取
+    
+    在fileRead.go文件中增加readFile方法
+    该方法接收filepath string,where func(string) bool,callBack func(string) 三个参数,分别对应 文件地址 赛选条件方法 回调方法
+     其中where为判断条件方法.返回bool类型   callBack为回调方法,该方法会将判断条件为正确的行传入回调方法
+    
 ## 配置文件解析
       
       "rootPrefix": "",//二级目录地址
