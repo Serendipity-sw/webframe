@@ -11,16 +11,18 @@ import (
 	"runtime"
 	"strings"
 	"syscall"
-	"net/http"
 )
 
 var (
-	configFn   = flag.String("config", "./config.json", "config file path") //配置文件地址
-	debugFlag  = flag.Bool("d", false, "debug mode")                        //是否为调试模式
-	rootPrefix string                                                       //二级目录地址
-	tempDir    string                                                       //模版目录
-	contentDir string                                                       //脚本目录
-	rt         *gin.Engine
+	configFn    = flag.String("config", "./config.json", "config file path") //配置文件地址
+	debugFlag   = flag.Bool("d", false, "debug mode")                        //是否为调试模式
+	rootPrefix  string                                                       //二级目录地址
+	tempDir     string                                                       //模版目录
+	contentDir  string                                                       //脚本目录
+	rt          *gin.Engine
+	mqAddr      string //activeMQ 地址和端口
+	queueResult string //activeMQ发送实例名称
+	queue       string //activeMQ 持续接收实例名称
 )
 
 /**
@@ -65,6 +67,9 @@ func serverRun(cfn string, debug bool) {
 	tempDir = strings.TrimSpace(config.GetStringMust("tempDir"))
 	contentDir = strings.TrimSpace(config.GetStringMust("contentDir"))
 	port := strings.TrimSpace(config.GetStringMust("port"))
+	mqAddr = strings.TrimSpace(config.GetStringMust("mqAddr"))
+	queueResult = strings.TrimSpace(config.GetStringMust("queueResult"))
+	queue = strings.TrimSpace(config.GetStringMust("queue"))
 
 	if len(rootPrefix) != 0 {
 		if !strings.HasPrefix(rootPrefix, "/") {
@@ -129,6 +134,6 @@ func router(r *gin.Engine) {
 	{
 		g.GET("/", func(c *gin.Context) { c.String(200, "ok") })
 
-		g.StaticFile("/assets",http.Dir(contentDir))
+		g.Static("/assets", contentDir)
 	}
 }

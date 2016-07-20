@@ -18,6 +18,10 @@
     1.提供setRedisCachePs设置缓存,输入参数: uuid键值  ps存入字符串  输出参数: 错误对象
     
     2.提供getRedisCachePs获取缓存,输入参数: key 键值    输出参数: redis获取值 错误对象
+  
+## activeMQ使用
+    1.提供activeMQ消息订阅功能,参考mqMessageReceive方法  中 //订阅消息接收处理 注释为消息处理,请编写时自行处理  订阅消息实例名为配置文件中的queue属性
+     2.提供activeMQ消息发送功能,方法为mqMessageSend 接收[]byte类型的消息,并将其推送到activeMQ服务消息实例为queueResult中, queueResult为配置文件中的queueResult属性
     
 ## sql使用
 
@@ -74,7 +78,10 @@
       "redisProto":"tcp",//redis连接方式
       "redisAddr":"127.0.0.1:6379",//redis连接地址
       "redisDatabase":5,//redis  database,
-      "port":":8000"//服务监听端口
+      "port":":8000",//服务监听端口
+      "mqAddr":"10.10.188.10:61613",//activeMQ 地址和端口
+      "queueResult":"qqwe", //activeMQ发送实例名称
+      "queue":"qweqwe"//activeMQ 持续接收实例名称
       
 ## 开源协议
 
