@@ -64,6 +64,10 @@
     在fileRead.go文件中增加readFile方法
     该方法接收filepath string,where []func(string) bool,callBack []func(string) 三个参数,分别对应 文件地址 赛选条件方法 回调方法
      其中where为判断条件方法.返回bool类型   callBack为回调方法,该方法会将判断条件为正确的行传入回调方法
+     
+## 数据写入文件并定时处理
+
+    增加loadInfile.go文件,并提供定时处理方法dataProcessFunc,其中在dataProcessFunc方法的注释{数据入库操作}处提供文件实际操作方法调用,该方法会定时删除无效文件,如不启用请查找注释处,并注释删除文件代码.提供logFile方法,供数据写入文件使用.该方法接收两个参数separator 分隔符   content 数据参数 其中content的属性为 ...string 类型 
     
 ## 配置文件解析
       
@@ -81,7 +85,9 @@
       "port":":8000",//服务监听端口
       "mqAddr":"10.10.188.10:61613",//activeMQ 地址和端口
       "queueResult":"qqwe", //activeMQ发送实例名称
-      "queue":"qweqwe"//activeMQ 持续接收实例名称
+      "queue":"qweqwe",//activeMQ 持续接收实例名称
+      "loadFileDir":"./dataFile" //数据写入文件的所在目录
+      
       
 ## 开源协议
 

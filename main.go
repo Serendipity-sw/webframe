@@ -23,6 +23,7 @@ var (
 	mqAddr      string //activeMQ 地址和端口
 	queueResult string //activeMQ发送实例名称
 	queue       string //activeMQ 持续接收实例名称
+	loadFileDir string //数据写入文件的所在目录
 )
 
 /**
@@ -70,6 +71,7 @@ func serverRun(cfn string, debug bool) {
 	mqAddr = strings.TrimSpace(config.GetStringMust("mqAddr"))
 	queueResult = strings.TrimSpace(config.GetStringMust("queueResult"))
 	queue = strings.TrimSpace(config.GetStringMust("queue"))
+	loadFileDir = strings.TrimSpace(config.GetStringMust("loadFileDir"))
 
 	if len(rootPrefix) != 0 {
 		if !strings.HasPrefix(rootPrefix, "/") {

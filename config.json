@@ -13,5 +13,6 @@
   "port":":8000",
   "mqAddr":"10.10.188.10:61613",
   "queueResult":"qqwe",
-  "queue":"qweqwe"
+  "queue":"qweqwe",
+  "loadFileDir":"./dataFile"
 }
