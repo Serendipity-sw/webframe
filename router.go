@@ -4,7 +4,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/smtc/glog"
+	"io"
 	"net/http"
+	"os"
 	"strconv"
 )
 
@@ -77,4 +80,30 @@ func jsonPRequest(c *gin.Context, bo bool, param interface{}) {
 			c.JSON(http.StatusOK, param)
 		}
 	}
+}
+
+/**
+公共文件上传主键
+创建人:邵炜
+创建时间:2016年12月21日17:27:33
+输入参数:gin对象
+数据反馈由gin进行
+*/
+func unitUploadFile(c *gin.Context) {
+	c.Request.ParseMultipartForm(32 << 20)
+	file, handler, err := c.Request.FormFile("uploadfile")
+	if err != nil {
+		glog.Error("unitUpLoadFile formFile err! err: %s \n", err.Error())
+		jsonPRequest(c, true, "您提交的表单文件有误,或参数属性不为uploadfile!")
+		return
+	}
+	defer file.Close()
+	fmt.Fprintf(c.Writer, "%v", handler.Header)
+	f, err := os.OpenFile(fmt.Sprintf("%s/%s", upLoadFileDir, handler.Filename), os.O_WRONLY|os.O_CREATE, 0666)
+	if err != nil {
+		glog.Error("unitUpLoadFile openFile err! err: %s \n", err.Error())
+		return
+	}
+	defer f.Close()
+	io.Copy(f, file)
 }

@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/guotie/config"
 	"github.com/guotie/deferinit"
@@ -14,16 +15,17 @@ import (
 )
 
 var (
-	configFn    = flag.String("config", "./config.json", "config file path") //配置文件地址
-	debugFlag   = flag.Bool("d", false, "debug mode")                        //是否为调试模式
-	rootPrefix  string                                                       //二级目录地址
-	tempDir     string                                                       //模版目录
-	contentDir  string                                                       //脚本目录
-	rt          *gin.Engine
-	mqAddr      string //activeMQ 地址和端口
-	queueResult string //activeMQ发送实例名称
-	queue       string //activeMQ 持续接收实例名称
-	loadFileDir string //数据写入文件的所在目录
+	configFn      = flag.String("config", "./config.json", "config file path") //配置文件地址
+	debugFlag     = flag.Bool("d", false, "debug mode")                        //是否为调试模式
+	rootPrefix    string                                                       //二级目录地址
+	tempDir       string                                                       //模版目录
+	contentDir    string                                                       //脚本目录
+	rt            *gin.Engine
+	mqAddr        string //activeMQ 地址和端口
+	queueResult   string //activeMQ发送实例名称
+	queue         string //activeMQ 持续接收实例名称
+	loadFileDir   string //数据写入文件的所在目录
+	upLoadFileDir string //文件上传目录
 )
 
 /**
@@ -66,12 +68,37 @@ func serverRun(cfn string, debug bool) {
 
 	rootPrefix = strings.TrimSpace(config.GetStringMust("rootPrefix"))
 	tempDir = strings.TrimSpace(config.GetStringMust("tempDir"))
+	err := createFileProcess(tempDir)
+	if err != nil {
+		fmt.Sprintf("serverRun upLoadFile exists! path: %s err: %s \n", tempDir, err.Error())
+		os.Exit(1)
+		return
+	}
 	contentDir = strings.TrimSpace(config.GetStringMust("contentDir"))
+	err = createFileProcess(contentDir)
+	if err != nil {
+		fmt.Println("serverRun upLoadFile exists! path: %s err: %s \n", contentDir, err.Error())
+		os.Exit(1)
+		return
+	}
 	port := strings.TrimSpace(config.GetStringMust("port"))
 	mqAddr = strings.TrimSpace(config.GetStringMust("mqAddr"))
 	queueResult = strings.TrimSpace(config.GetStringMust("queueResult"))
 	queue = strings.TrimSpace(config.GetStringMust("queue"))
 	loadFileDir = strings.TrimSpace(config.GetStringMust("loadFileDir"))
+	err = createFileProcess(loadFileDir)
+	if err != nil {
+		fmt.Println("serverRun upLoadFile exists! path: %s err: %s \n", loadFileDir, err.Error())
+		os.Exit(1)
+		return
+	}
+	upLoadFileDir = strings.TrimSpace(config.GetStringMust("upLoadFileDir"))
+	err = createFileProcess(upLoadFileDir)
+	if err != nil {
+		fmt.Println("serverRun upLoadFile exists! path: %s err: %s \n", upLoadFileDir, err.Error())
+		os.Exit(1)
+		return
+	}
 
 	if len(rootPrefix) != 0 {
 		if !strings.HasPrefix(rootPrefix, "/") {
@@ -135,7 +162,8 @@ func router(r *gin.Engine) {
 
 	{
 		g.GET("/", func(c *gin.Context) { c.String(200, "ok") })
-
 		g.Static("/assets", contentDir)
+
+		g.POST("/unitUpLoadFile", unitUploadFile) //文件上传
 	}
 }

@@ -14,5 +14,6 @@
   "mqAddr":"10.10.188.10:61613",
   "queueResult":"qqwe",
   "queue":"qweqwe",
-  "loadFileDir":"./dataFile"
+  "loadFileDir":"./dataFile",
+  "upLoadFileDir":"./upLoadFileDir"
 }
