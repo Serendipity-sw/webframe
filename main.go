@@ -26,6 +26,7 @@ var (
 	queue         string //activeMQ 持续接收实例名称
 	loadFileDir   string //数据写入文件的所在目录
 	upLoadFileDir string //文件上传目录
+	autoMatedDir  string //自动化文件夹监控目录地址
 )
 
 /**
@@ -70,14 +71,14 @@ func serverRun(cfn string, debug bool) {
 	tempDir = strings.TrimSpace(config.GetStringMust("tempDir"))
 	err := createFileProcess(tempDir)
 	if err != nil {
-		fmt.Sprintf("serverRun upLoadFile exists! path: %s err: %s \n", tempDir, err.Error())
+		fmt.Printf("serverRun upLoadFile exists! path: %s err: %s \n", tempDir, err.Error())
 		os.Exit(1)
 		return
 	}
 	contentDir = strings.TrimSpace(config.GetStringMust("contentDir"))
 	err = createFileProcess(contentDir)
 	if err != nil {
-		fmt.Println("serverRun upLoadFile exists! path: %s err: %s \n", contentDir, err.Error())
+		fmt.Printf("serverRun upLoadFile exists! path: %s err: %s \n", contentDir, err.Error())
 		os.Exit(1)
 		return
 	}
@@ -88,14 +89,21 @@ func serverRun(cfn string, debug bool) {
 	loadFileDir = strings.TrimSpace(config.GetStringMust("loadFileDir"))
 	err = createFileProcess(loadFileDir)
 	if err != nil {
-		fmt.Println("serverRun upLoadFile exists! path: %s err: %s \n", loadFileDir, err.Error())
+		fmt.Printf("serverRun upLoadFile exists! path: %s err: %s \n", loadFileDir, err.Error())
 		os.Exit(1)
 		return
 	}
 	upLoadFileDir = strings.TrimSpace(config.GetStringMust("upLoadFileDir"))
 	err = createFileProcess(upLoadFileDir)
 	if err != nil {
-		fmt.Println("serverRun upLoadFile exists! path: %s err: %s \n", upLoadFileDir, err.Error())
+		fmt.Printf("serverRun upLoadFile exists! path: %s err: %s \n", upLoadFileDir, err.Error())
+		os.Exit(1)
+		return
+	}
+	autoMatedDir = strings.TrimSpace(config.GetStringMust("autoMatedDir"))
+	err = createFileProcess(autoMatedDir)
+	if err != nil {
+		fmt.Printf("serverRun upLoadFile exists! path: %s err: %s \n", autoMatedDir, err.Error())
 		os.Exit(1)
 		return
 	}

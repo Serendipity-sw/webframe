@@ -106,4 +106,5 @@ func unitUploadFile(c *gin.Context) {
 	}
 	defer f.Close()
 	io.Copy(f, file)
+	fmt.Println("运行完成")
 }
