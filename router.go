@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/smtc/glog"
-	"io"
 	"net/http"
 	"os"
 	"strconv"
@@ -81,6 +80,21 @@ func jsonPRequest(c *gin.Context, bo bool, param interface{}) {
 			c.JSON(http.StatusOK, param)
 		}
 	}
+}
+
+/**
+获取网页页面
+创建人:邵炜
+创建时间:2017年2月2日21:12:58
+输入参数:gin对象
+输出参数:无
+数据反馈由gin进行
+ */
+func unitGetHtml(c *gin.Context) {
+	htmlName:=c.Param("name")
+	c.HTML(http.StatusOK,htmlName,gin.H{
+		"webFrameRoot":fmt.Sprintf("http://%s%s",c.Request.Host,rootPrefix),
+	})
 }
 
 /**

@@ -171,7 +171,7 @@ func router(r *gin.Engine) {
 	{
 		g.GET("/", func(c *gin.Context) { c.String(200, "ok") })
 		g.Static("/assets", contentDir)
-
+		g.GET("/template/:name",unitGetHtml)
 		g.POST("/unitUpLoadFile", unitUploadFile) //文件上传
 	}
 }

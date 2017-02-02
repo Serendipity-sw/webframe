@@ -67,7 +67,12 @@
      
 ## 数据写入文件并定时处理
 
-    增加loadInfile.go文件,并提供定时处理方法dataProcessFunc,其中在dataProcessFunc方法的注释{数据入库操作}处提供文件实际操作方法调用,该方法会定时删除无效文件,如不启用请查找注释处,并注释删除文件代码.提供logFile方法,供数据写入文件使用.该方法接收两个参数separator 分隔符   content 数据参数 其中content的属性为 ...string 类型 
+    增加loadInfile.go文件,并提供定时处理方法dataProcessFunc,其中在dataProcessFunc方法的注释{数据入库操作}处提供文件实际操作方法调用,该方法会定时删除无效文件,如不启用请查找注释处,并注释删除文件代码.提供logFile方法,供数据写入文件使用.该方法接收两个参数separator 分隔符   content 数据参数 其中content的属性为 ...string 类型
+
+## 文件上传
+
+   增加文件上传接口,接口 /unitUpLoadFile 需提供fname参数文件名称  上传文件需存放在form表单的file变量中,否则无法正确上传
+   文件上传支持文件切片上传,原理类似断点续传
     
 ## 配置文件解析
       
@@ -91,4 +96,4 @@
       
 ## 开源协议
 
-无任何使用限制
+无使用限制
