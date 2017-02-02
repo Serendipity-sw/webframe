@@ -225,9 +225,9 @@ func fileProcess(filePathStr string) {
 	if strings.HasPrefix(fileName[0], "picture-") {
 		err := fileCreateAndWriteByPath(filePathStr, fmt.Sprintf("./%s", strings.Join(fileName, "")))
 		if err != nil {
-			glog.Error("fileProcess run err!")
+			glog.Error("fileProcess run err! \n")
 			return
 		}
-		glog.Info("picture file move run success!")
+		glog.Info("picture file move run success! \n")
 	}
 }
