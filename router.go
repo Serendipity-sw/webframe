@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"io/ioutil"
 )
 
 /**
@@ -90,21 +91,30 @@ func jsonPRequest(c *gin.Context, bo bool, param interface{}) {
 数据反馈由gin进行
 */
 func unitUploadFile(c *gin.Context) {
+	fileName := c.Query("fname")
 	c.Request.ParseMultipartForm(32 << 20)
-	file, handler, err := c.Request.FormFile("uploadfile")
+	file, handler, err := c.Request.FormFile("file")
 	if err != nil {
 		glog.Error("unitUpLoadFile formFile err! err: %s \n", err.Error())
-		jsonPRequest(c, true, "您提交的表单文件有误,或参数属性不为uploadfile!")
+		jsonPRequest(c, true, "您提交的表单文件有误,或参数属性不为file!")
 		return
 	}
 	defer file.Close()
 	fmt.Fprintf(c.Writer, "%v", handler.Header)
-	f, err := os.OpenFile(fmt.Sprintf("%s/%s", upLoadFileDir, handler.Filename), os.O_WRONLY|os.O_CREATE, 0666)
+	f, err := os.OpenFile(fmt.Sprintf("%s/%s", upLoadFileDir, fileName), os.O_WRONLY|os.O_CREATE, 0666)
 	if err != nil {
-		glog.Error("unitUpLoadFile openFile err! err: %s \n", err.Error())
+		glog.Error("unitUpLoadFile openFile err! file: %s err: %s \n", fileName, err.Error())
 		return
 	}
 	defer f.Close()
-	io.Copy(f, file)
-	fmt.Println("运行完成")
+	n, err := f.Seek(0, os.SEEK_END)
+	if err != nil {
+		glog.Error("unitUpLoadFile file seek err! fileName: %s err: %s \n", fileName, err.Error())
+		return
+	}
+	fileContentByte, err := ioutil.ReadAll(file)
+	_, err = f.WriteAt(fileContentByte, n)
+	if err != nil {
+		glog.Error("unitUpLoadFile file write err! fileName: %s err: %s \n", fileName, err.Error())
+	}
 }
