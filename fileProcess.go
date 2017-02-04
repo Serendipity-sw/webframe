@@ -6,10 +6,37 @@ import (
 	"fmt"
 	"github.com/smtc/glog"
 	"io"
+	"io/ioutil"
 	"os"
 	"path"
 	"strings"
 )
+
+/**
+文件移动
+创建人:邵炜
+创建时间:2016年9月7日16:09:17
+输入参数: 文件路劲 移动后的文件名称
+输出参数: 文件路径 错误对象
+*/
+func fileMove(filePaths, afterFileName string) (string, error) {
+	fileContent, err := ioutil.ReadFile(filePaths)
+	if err != nil {
+		glog.Error("fileMove file can't read! filePaths: %s afterFileName: %s err: %s \n", filePaths, afterFileName, err.Error())
+		return "", err
+	}
+	err = fileCreateAndWrite(&fileContent, afterFileName)
+	if err != nil {
+		glog.Error("fileMove fileCreateAndWrite run error! filePaths: %s afterFileName: %s err: %s \n", filePaths, afterFileName, err.Error())
+		return "", err
+	}
+	err = os.Remove(filePaths)
+	if err != nil {
+		glog.Error("picutreProcess file remove error! filePathStr: %s err: %s \n", filePaths, err.Error())
+	}
+	glog.Info("fileMove run success! filePath: %s afterFileName: %s \n", filePaths, afterFileName)
+	return afterFileName, nil
+}
 
 /**
 判断文件或文件夹是否存在
