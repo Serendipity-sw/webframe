@@ -16,5 +16,6 @@
   "queue":"qweqwe",
   "loadFileDir":"./dataFile",
   "upLoadFileDir":"./upLoadFileDir",
-  "autoMatedDir":"./autoMatedDir"
+  "autoMatedDir":"./autoMatedDir",
+  "logsDir": "./logs"
 }

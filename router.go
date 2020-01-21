@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/smtc/glog"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"strconv"
-	"io/ioutil"
 )
 
 /**
@@ -89,11 +89,11 @@ func jsonPRequest(c *gin.Context, bo bool, param interface{}) {
 输入参数:gin对象
 输出参数:无
 数据反馈由gin进行
- */
+*/
 func unitGetHtml(c *gin.Context) {
-	htmlName:=c.Param("name")
-	c.HTML(http.StatusOK,htmlName,gin.H{
-		"webFrameRoot":fmt.Sprintf("http://%s%s",c.Request.Host,rootPrefix),
+	htmlName := c.Param("name")
+	c.HTML(http.StatusOK, htmlName, gin.H{
+		"webFrameRoot": fmt.Sprintf("http://%s%s", c.Request.Host, rootPrefix),
 	})
 }
 
