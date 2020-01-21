@@ -25,29 +25,22 @@
     
 ## sql使用
 
-    1.提供sqlSelect数据库查询方法 输入参数: sqlstr 要执行的sql语句 param执行SQL的语句参数化传递   输出参数: 查询返回条数  错误对象输出
-    
-    2.提供sqlExec数据库增删改方法 输入参数: sqlstr 要执行的sql语句  param执行SQL的语句参数化传递  输出参数: 执行结果对象  错误对象输出
+移交至[gutil](https://github.com/swgloomy/gutil)
     
     
 ## 定时器watchFuncDir
 
-    watchFuncDir方法寄存在timeMonitor.go文件中,方法中注释处可添加所有需要定时执行的方法
+移交至[gutil](https://github.com/swgloomy/gutil)
     
 ## 监视文件夹目录如发生任何修改,重新载入
 
-    增加notifyTemplates 方法,检测template文件夹是否发生变化,如发生变化,则重新将模版文件载入到gin对象中
+移交至[gutil](https://github.com/swgloomy/gutil)
     
 ## 项目中资源文件
 
     项目中所有资源文件存放在content文件夹中,该目录读取由go进行,文件资源暂不做缓存处理.在main.go文件中router路由方法g.GET("/assets/*pth", assetsFiles)
     请求路劲为http://域名/assets/资源文件目录  如content文件下有个js文件则为  http://域名/assets/jquery.js
     
-## 增加图片流字符串解析保存到给定的目录中
-    
-    提供imageFileSave方法,该方法寄存在imageFile.go文件中,方法接收两个参数,其中对图片流格式要求为: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGIAAABiCAYAAACrpQYOAAAAGX.........
-    path为接收的需要保存路径,如 ./temp/
-    方法会将图片流转化为实际图片存放在给定目录中.并返回路径
     
 ## 项目添加路由
     
@@ -61,23 +54,17 @@
     
 ## 文件读取
     
-    在fileRead.go文件中增加readFile方法
-    该方法接收filepath string,where []func(string) bool,callBack []func(string) 三个参数,分别对应 文件地址 赛选条件方法 回调方法
-     其中where为判断条件方法.返回bool类型   callBack为回调方法,该方法会将判断条件为正确的行传入回调方法
-     
+移交至[gutil](https://github.com/swgloomy/gutil)
+
 ## 数据写入文件并定时处理
 
-    增加loadInfile.go文件,并提供定时处理方法dataProcessFunc,其中在dataProcessFunc方法的注释{数据入库操作}处提供文件实际操作方法调用,该方法会定时删除无效文件,如不启用请查找注释处,并注释删除文件代码.提供logFile方法,供数据写入文件使用.该方法接收两个参数separator 分隔符   content 数据参数 其中content的属性为 ...string 类型
+移交至[gutil](https://github.com/swgloomy/gutil)
 
 ## 文件上传
 
    增加文件上传接口,接口 /unitUpLoadFile 需提供fname参数文件名称  上传文件需存放在form表单的file变量中,否则无法正确上传
    文件上传支持文件切片上传,原理类似断点续传
    
-## 文件移动
-
-    在fileProcess.go类库中增加fileMove方法(文件移动),将文件从一个目录中移动到另外一个目录中,方法接收filepaths参数及afterFileName参数 第一个参数为文件移动之前的路径 第二个参数为文件移动后的新路径
-    
 ## 配置文件解析
       
       "rootPrefix": "",//二级目录地址
@@ -96,6 +83,7 @@
       "queueResult":"qqwe", //activeMQ发送实例名称
       "queue":"qweqwe",//activeMQ 持续接收实例名称
       "loadFileDir":"./dataFile" //数据写入文件的所在目录
+      "logsDir": "./logs" //日志目录文件夹
       
       
 ## 开源协议
